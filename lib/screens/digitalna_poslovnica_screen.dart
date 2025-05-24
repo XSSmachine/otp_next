@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'ai_assistant_screen.dart';
 
 class DigitalnaPoslovnicaScreen extends StatelessWidget {
   const DigitalnaPoslovnicaScreen({super.key});
@@ -40,8 +41,11 @@ class DigitalnaPoslovnicaScreen extends StatelessWidget {
                 textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               onPressed: () {
-                // TODO: Implement AI agent logic
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('AI agent feature coming soon!')));
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AIAssistantScreen(),
+                  ),
+                );
               },
             ),
           ],

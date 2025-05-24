@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'private_banker_appointment_screen.dart';
+import 'ai_assistant_screen.dart';
 
 class PanoramicViewerScreen extends StatefulWidget {
   const PanoramicViewerScreen({Key? key}) : super(key: key);
@@ -114,33 +116,17 @@ class _PanoramicViewerScreenState extends State<PanoramicViewerScreen> {
   }
 
   void _onAIAssistantPressed() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('AI Assistant'),
-        content: const Text('AI Assistant feature activated!'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
-          ),
-        ],
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const AIAssistantScreen(),
       ),
     );
   }
 
   void _onPrivateBankerPressed() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Private Banker'),
-        content: const Text('Connecting to your Private Banker...'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
-          ),
-        ],
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const PrivateBankerAppointmentScreen(),
       ),
     );
   }
