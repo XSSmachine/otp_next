@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_card.dart';
+import 'notifications_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.onDigitalnaPoslovnica});
 
   final VoidCallback onDigitalnaPoslovnica;
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  void _showNotifications() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const NotificationsScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +34,10 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Image.asset('assets/otp_logo.png', height: 32),
                   const Spacer(),
-                  Icon(Icons.mail_outline, color: Colors.greenAccent),
+                  GestureDetector(
+                    onTap: _showNotifications,
+                    child: Icon(Icons.mail_outline, color: Colors.greenAccent),
+                  ),
                   const SizedBox(width: 16),
                   Icon(Icons.power_settings_new, color: Colors.greenAccent),
                 ],
@@ -118,7 +136,7 @@ class HomeScreen extends StatelessWidget {
                     title: 'Digitalna poslovnica',
                     width: 346,
                     icon: Icons.support_agent,
-                    onTap: onDigitalnaPoslovnica,
+                    onTap: widget.onDigitalnaPoslovnica,
                   ),
                 ],
               ),
