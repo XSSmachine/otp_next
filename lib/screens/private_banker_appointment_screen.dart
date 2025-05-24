@@ -112,6 +112,240 @@ class _PrivateBankerAppointmentScreenState extends State<PrivateBankerAppointmen
     }
   }
 
+  void _showBankOffers() {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+            color: const Color(0xFF2A2A2A),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Header
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF7ED957), Color(0xFF5CB340)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                  ),
+                ),
+                child: const Row(
+                  children: [
+                    Icon(Icons.local_offer, color: Colors.black, size: 28),
+                    SizedBox(width: 12),
+                    Text(
+                      'Exclusive Offers',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              
+              // Offers List
+              Flexible(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      _buildOfferCard(
+                        icon: Icons.credit_card,
+                        title: 'Premium Credit Card',
+                        description: 'Get 5% cashback on all purchases for the first 3 months',
+                        tag: 'Limited Time',
+                        tagColor: Colors.red,
+                      ),
+                      const SizedBox(height: 12),
+                      _buildOfferCard(
+                        icon: Icons.savings,
+                        title: 'High-Yield Savings',
+                        description: 'Earn 4.5% APY on your savings account balance',
+                        tag: 'Best Rate',
+                        tagColor: const Color(0xFF7ED957),
+                      ),
+                      const SizedBox(height: 12),
+                      _buildOfferCard(
+                        icon: Icons.home,
+                        title: 'Home Loan Special',
+                        description: 'Reduced interest rates starting from 3.2% for qualified buyers',
+                        tag: 'New',
+                        tagColor: Colors.blue,
+                      ),
+                      const SizedBox(height: 12),
+                      _buildOfferCard(
+                        icon: Icons.trending_up,
+                        title: 'Investment Portfolio',
+                        description: 'Free portfolio management for investments over \$50,000',
+                        tag: 'Exclusive',
+                        tagColor: Colors.purple,
+                      ),
+                      const SizedBox(height: 12),
+                      _buildOfferCard(
+                        icon: Icons.business,
+                        title: 'Business Banking',
+                        description: 'No monthly fees for the first year on business accounts',
+                        tag: 'Popular',
+                        tagColor: Colors.orange,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              
+              // Close Button
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    style: TextButton.styleFrom(
+                      backgroundColor: const Color(0xFF7ED957),
+                      foregroundColor: Colors.black,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Text(
+                      'Close',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOfferCard({
+    required IconData icon,
+    required String title,
+    required String description,
+    required String tag,
+    required Color tagColor,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1A1A),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: const Color(0xFF404040)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF7ED957).withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(icon, color: const Color(0xFF7ED957), size: 24),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          title,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: tagColor,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            tag,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      description,
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () {
+                // Handle offer action
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('$title offer details will be sent to your email'),
+                    backgroundColor: const Color(0xFF7ED957),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: const Color(0xFF7ED957).withOpacity(0.2),
+                foregroundColor: const Color(0xFF7ED957),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: const Text(
+                'Learn More',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,6 +361,12 @@ class _PrivateBankerAppointmentScreenState extends State<PrivateBankerAppointmen
           'Private Banker Appointment',
           style: TextStyle(color: Colors.white),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.mail, color: Colors.white),
+            onPressed: _showBankOffers,
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
